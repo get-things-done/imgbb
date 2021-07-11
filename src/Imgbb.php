@@ -14,7 +14,7 @@ class Imgbb
     // Build your next great package.
     public function uploadByUrl(string $image): ?Image
     {
-        $response = Http::asForm()->post("https://api.imgbb.com/1/upload?key=".config('imgbb.default.key'),[
+        $response = Http::asForm()->retry(5,1000)->post("https://api.imgbb.com/1/upload?key=".config('imgbb.default.key'),[
             'image' => $image
         ])->json();
 
